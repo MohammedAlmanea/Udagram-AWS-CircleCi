@@ -15,7 +15,7 @@ jobs:
       - node/install:
           node-version: '14.15'         
       - checkout
-      # Use root level package.json to install dependencies in the frontend app
+      - aws-cli/setup
       - run:
           name: Install Front-End Dependencies
           command: |
@@ -24,26 +24,22 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install
-      # TODO: Install dependencies in the the backend API          
       - run:
           name: Install API Dependencies
           command: |
-           echo "TODO: Install dependencies in the the backend API  "
-      # TODO: Lint the frontend
+            npm run api:install
       - run:
           name: Front-End Lint
           command: |
-            echo "TODO: Lint the frontend"
-      # TODO: Build the frontend app
+            npm run frontend:lint
       - run:
           name: Front-End Build
           command: |
-            echo "TODO: Build the frontend app"
-      # TODO: Build the backend API      
+            npm run frontend:build
       - run:
           name: API Build
           command: |
-            echo "TODO: Build the backend API"
+            npm run api:build
   # deploy step will run only after manual approval
   deploy:
     docker:
@@ -57,9 +53,12 @@ jobs:
       - checkout
       - run:
           name: Deploy App
-          # TODO: Install, build, deploy in both apps
           command: |
-            echo "# TODO: Install, build, deploy in both apps"
+            cd udagram/udagram-api/
+            eb setenv POSTGRES_USERNAME=${POSTGRES_USERNAME} POSTGRES_PASSWORD=${POSTGRES_PASSWORD} POSTGRES_HOST=${POSTGRES_HOST} POSTGRES_DB=${POSTGRES_DB} AWS_BUCKET=${AWS_BUCKET} AWS_REGION=${AWS_REGION} AWS_PROFILE=${AWS_PROFILE} JWT_SECRET=${JWT_SECRET}
+            cd ../..
+            npm run deploy
+
             
 workflows:
   udagram:
