@@ -15,35 +15,31 @@ jobs:
       - node/install:
           node-version: '14.15'         
       - checkout
-      # Use root level package.json to install dependencies in the frontend app
-      - run:
-          name: Install yarn
-          command: 
-            npm install -g yarn
+      - aws-cli/setup
       - run:
           name: Install Front-End Dependencies
-          command: 
-            yarn frontend:install
-      # TODO: Install dependencies in the the backend API          
+          command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            npm run frontend:install
       - run:
           name: Install API Dependencies
-          command: 
-          yarn api:install
-      # TODO: Lint the frontend
+          command: |
+            npm run api:install
       - run:
           name: Front-End Lint
-          command: 
-          yarn frontend:lint
-      # TODO: Build the frontend app
+          command: |
+            npm run frontend:lint
       - run:
           name: Front-End Build
-          command: 
-            yarn frontend:build
-      # TODO: Build the backend API      
+          command: |
+            npm run frontend:build
       - run:
           name: API Build
-          command: 
-            yarn api:build
+          command: |
+            npm run api:build
   # deploy step will run only after manual approval
   deploy:
     docker:
@@ -57,9 +53,12 @@ jobs:
       - checkout
       - run:
           name: Deploy App
-          # TODO: Install, build, deploy in both apps
-          command: 
-            yarn deploy
+          command: |
+            cd udagram/udagram-api/
+            eb setenv POSTGRES_USERNAME=${POSTGRES_USERNAME} POSTGRES_PASSWORD=${POSTGRES_PASSWORD} POSTGRES_HOST=${POSTGRES_HOST} POSTGRES_DB=${POSTGRES_DB} AWS_BUCKET=${AWS_BUCKET} AWS_REGION=${AWS_REGION} AWS_PROFILE=${AWS_PROFILE} JWT_SECRET=${JWT_SECRET}
+            cd ../..
+            npm run deploy
+
             
 workflows:
   udagram:
