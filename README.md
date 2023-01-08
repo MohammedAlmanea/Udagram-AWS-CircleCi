@@ -1,23 +1,29 @@
 # Hosting a Full-Stack Application
 
+[![MohammedAlmanea](https://circleci.com/gh/MohammedAlmanea/Udagram-AWS-CircleCi.svg?style=svg)](https://app.circleci.com/pipelines/github/MohammedAlmanea/Udagram-AWS-CircleCi)
+
 ## Udagram Overview
 
 Udagram - an Image Filtering application, allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering service. It has two components:
 
-* Frontend - Angular web application built with Ionic framework.
-* Backend RESTful API - Node-Typescript application.
+- Frontend - Angular web application built with Ionic framework.
+- Backend RESTful API - Node-Typescript application.
 
 ## Diagrams
 
 ### Architecture
-![Architecture Diagram](./diagrams/AWS-Architecture.png)
-### Pipeline 
-![Pipeline Diagram](./diagrams/Pipeline-Diagram.png.png)
 
+![Architecture Diagram](./diagrams/AWS-Architecture.png)
+
+### Pipeline
+
+![Pipeline Diagram](./diagrams/Pipeline-Diagram.png)
 
 ## Project URLS
-API : udagram-api-dev.eba-wgsa4svp.us-east-1.elasticbeanstalk.com  
+
+API : http://udagram-api-dev.eba-wgsa4svp.us-east-1.elasticbeanstalk.com  
 Front-End : http://mohammed-udagram.s3-website-us-east-1.amazonaws.com
+
 ### Installation
 
 Provision the necessary AWS services needed for running the application:
@@ -51,4 +57,3 @@ The e2e tests are using Protractor and Jasmine.
 - [Angular](https://angular.io/) - Single Page Application Framework
 - [Node](https://nodejs.org) - Javascript Runtime
 - [Express](https://expressjs.com/) - Javascript API Framework
-
